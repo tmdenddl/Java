@@ -1,0 +1,59 @@
+Q1:
+
+String s = null;
+if (s != null || !s.isEmpty()) {
+    System.out.println("Answer A");
+} else {
+    System.out.println("Answer B");
+}
+
+1. Answer A
+2. Answer B
+3. 오류 발생
+
+ANS: 3
+
+s는 null이기 때문에, if문의 첫 번째 조건 s != null의 값은 false입니다.
+
+앞쪽 메소드가 false를 리턴하면 뒤쪽 메소드도 실행됩니다. 그런데 s가 null인 상황에서 s.isEmpty()는 NullPointerException 에러를 일으킵니다!
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Q2:
+
+String[] strings = new String[5];
+strings[0] = "Hello";
+strings[2] = "";
+strings[4] = "Java";
+
+int countA = 0, countB = 0;
+for (String str : strings) {
+    if (str != null && !str.isEmpty()) {
+        countA++;
+    } else {
+        countB++;
+    }
+}
+System.out.println(countB);
+
+1. 2
+2. 3
+3. 4
+4. 5
+5. 오류 발생
+
+ANS: 2
+
+if문의 첫 번째 조건부터 봅시다. str != null은 원소가 null인지 체크하는 조건입니다. null이 아니라면 true를 리턴하겠죠.
+
+두 번째 조건!str.isEmpty()은 문자열 str이 빈 문자열인지 확인합니다. strings[2].isEmpty()의 경우 true를 리턴하겠죠.
+
+그런데, 두 조건이 and 연산(&&)으로 연결되었습니다. 숏서킷 연산에 의해 첫 번째 조건이 true인 경우, 즉 str이 null이 아닌 경우에만 두 번째 조건을 수행하겠죠?
+
+그렇기 때문에 앞 문제에서처럼 NullPointerException은 발생하지 않습니다! 그러니 5번은 답이 아닙니다.
+
+자, 두 조건문을 연결해서 생각해보면, 이 if문은:
+
+str이 null이 아니면서 빈 문자열도 아닐 경우 countA를 하나 증가시키고
+str이 null이거나 빈 문자열("")인 경우 countB를 하나 증가시킵니다
+그러므로 null인 strings[1], strings[3]의 경우, 그리고 빈 문자열인 strings[2]의 경우 countB가 증가 되어, 최종적으로 3이 출력됩니다.
